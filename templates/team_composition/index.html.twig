@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TeamComposition index{% endblock %}
+
+{% block body %}
+    <h1>TeamComposition index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>IsHost</th>
+                <th>IsGuest</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for team_composition in team_compositions %}
+            <tr>
+                <td>{{ team_composition.id }}</td>
+                <td>{{ team_composition.isHost ? 'Yes' : 'No' }}</td>
+                <td>{{ team_composition.isGuest ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_team_composition_show', {'id': team_composition.id}) }}">show</a>
+                    <a href="{{ path('app_team_composition_edit', {'id': team_composition.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_team_composition_new') }}">Create new</a>
+{% endblock %}

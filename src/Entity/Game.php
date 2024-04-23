@@ -1,0 +1,138 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\GameRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Doctrine\ORM\Mapping\PrePersist;
+use Doctrine\ORM\Mapping\PreUpdate;
+use Doctrine\ORM\Event\PrePersistEventArgs;
+use DateTimeImmutable;
+use DateTimeZone;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+
+#[ORM\Entity(repositoryClass: GameRepository::class)]
+class Game
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'games')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Team $RedTeam = null;
+
+    #[ORM\ManyToOne(inversedBy: 'games')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Team $BlueTeam = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $PointsBlue = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $PointsRed = null;
+
+    #[ORM\ManyToOne(inversedBy: 'wonGames')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Team $winnerTeam = null;
+
+    #[PrePersist]
+    public function setCreatedAtOnCreate(PrePersistEventArgs $eventArgs): void
+    {
+        $now = new DateTimeImmutable('now', new DateTimeZone('Europe/Paris'));
+        $this->createdAt = $now;
+    }
+    
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getRedTeam(): ?Team
+    {
+        return $this->RedTeam;
+    }
+
+    public function setRedTeam(?Team $RedTeam): static
+    {
+        $this->RedTeam = $RedTeam;
+
+        return $this;
+    }
+
+    public function getBlueTeam(): ?Team
+    {
+        return $this->BlueTeam;
+    }
+
+    public function setBlueTeam(?Team $BlueTeam): static
+    {
+        $this->BlueTeam = $BlueTeam;
+
+        return $this;
+    }
+
+    public function getPointsBlue(): ?int
+    {
+        return $this->PointsBlue;
+    }
+
+    public function setPointsBlue(?int $PointsBlue): static
+    {
+        $this->PointsBlue = $PointsBlue;
+
+        return $this;
+    }
+
+    public function getPointsRed(): ?int
+    {
+        return $this->PointsRed;
+    }
+
+    public function setPointsRed(?int $PointsRed): static
+    {
+        $this->PointsRed = $PointsRed;
+
+        return $this;
+    }
+
+    public function getWinnerTeam(): ?Team
+    {
+        return $this->winnerTeam;
+    }
+
+    public function setWinnerTeam(?Team $winnerTeam): static
+    {
+        $this->winnerTeam = $winnerTeam;
+
+        return $this;
+    }
+
+    #[Assert\Callback]
+    public function validate(ExecutionContextInterface $context): void
+    {
+        if ($this->RedTeam === $this->BlueTeam) {
+            $context->buildViolation("L'équipe rouge et l'équipe bleue ne peuvent pas être les mêmes")
+                ->atPath('RedTeam')
+                ->addViolation();
+        }
+    }
+}
