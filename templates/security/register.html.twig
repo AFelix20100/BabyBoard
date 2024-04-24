@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<div class="site-section">
+	<div class="container mt-5">
+		<div class="row d-flex justify-content-center">
+			<div class="col-lg-7">
+				{{form_start(registrationForm)}}
+				<div class="row">
+					<div class="col-6">
+						{{ form_row(registrationForm.lastName, {'attr': {'class': 'form-control'}}) }}
+					</div>
+					<div class="col-6">
+						{{ form_row(registrationForm.firstName, {'attr': {'class': 'form-control'}}) }}
+					</div>
+				</div>
+				{{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+				{{ form_row(registrationForm.pseudo, {'attr': {'class': 'form-control'}}) }}
+				{{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+				{{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-check'}}) }}
+
+				<button class="btn btn-lg btn-primary mt-2" type="submit">
+					Se connecter
+				</button>
+			</div>
+			{{form_end(registrationForm)}}
+		</div>
+	</div>
+</div></div>
+
+{% endblock %}

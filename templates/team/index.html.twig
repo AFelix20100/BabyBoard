@@ -3,33 +3,41 @@
 {% block title %}Team index{% endblock %}
 
 {% block body %}
-    <h1>Team index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for team in teams %}
-            <tr>
-                <td>{{ team.id }}</td>
-                <td>{{ team.name }}</td>
-                <td>
-                    <a href="{{ path('app_team_show', {'id': team.id}) }}">show</a>
-                    <a href="{{ path('app_team_edit', {'id': team.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_team_new') }}">Create new</a>
+    <div class="site-section bg-dark">
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-12">
+            <div class="widget-next-match">
+              <table class="table custom-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>NOM</th>
+                    <th>NOMBRE DE JOUEURS</th>
+                    <th>NOMBRE DE PARTIES JOUÉES</th>
+                    <th>NOMBRE DE VICTOIRE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                    {% for team in teams %}
+                        <tr>
+                            <td>{{ team.id }}</td>
+                            <td><strong class="text-white">{{ team.name }}</strong></td>
+                            <td>{{ team.teamCompositions|length }}</td>
+                            <td>3</td>
+                            <td>2</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">no records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- .site-section -->
 {% endblock %}

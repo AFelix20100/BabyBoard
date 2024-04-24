@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
+#[HasLifecycleCallbacks]
 class Game
 {
     #[ORM\Id]

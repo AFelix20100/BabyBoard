@@ -3,9 +3,16 @@
 {% block title %}New Team{% endblock %}
 
 {% block body %}
-    <h1>Create new Team</h1>
+    
+    <div class="site-section">
+      <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
 
-    {{ include('team/_form.html.twig') }}
+            {{ include('team/_form.html.twig') }}
 
-    <a href="{{ path('app_team_index') }}">back to list</a>
+            <h1>Create new Team</h1>
+            <a href="{{ path('app_team_index') }}">back to list</a>
+        </div>
+      </div>
+    </div>
 {% endblock %}

@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>LastName</th>
                 <th>FirstName</th>
+                <th>Mail</th>
                 <th>Pseudo</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
@@ -23,6 +24,7 @@
                 <td>{{ player.id }}</td>
                 <td>{{ player.lastName }}</td>
                 <td>{{ player.firstName }}</td>
+                <td>{{ player.email }}</td>
                 <td>{{ player.pseudo }}</td>
                 <td>{{ player.createdAt ? player.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ player.updatedAt ? player.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
