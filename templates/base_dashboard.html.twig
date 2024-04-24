@@ -41,7 +41,7 @@
 					<div class="d-flex align-items-center">
 						<div class="site-logo">
 							<a
-								href="index.html">
+								href="{{path('app_dashboard_index')}}">
 								{# <img src="images/logo.png" alt="Logo"> #}
 								<h1>BabyBoard</h1>
 							</a>
@@ -53,10 +53,10 @@
 										<a href="{{ path('app_home') }}" class="nav-link">Accueil</a>
 									</li>
 									<li>
-										<a href="{{ path('app_game_index') }}" class="nav-link">Mes équipes</a>
+										<a href="{{ path('app_dashboard_team_index') }}" class="nav-link">Mes équipes</a>
 									</li>
 									<li>
-										<a href="{{ path('app_player_index') }}" class="nav-link">Mes matchs</a>
+										<a href="{{ path('app_dashboard_game') }}" class="nav-link">Mes matchs</a>
 									</li>
                                         {% if app.user %}
                                             <a href="{{path('_logout_main')}}" class="btn btn-primary py-3 px-4 mr-3">Déconnexion</a>

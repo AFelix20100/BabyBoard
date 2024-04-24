@@ -6,8 +6,10 @@ use App\Repository\TeamRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
+#[UniqueEntity(fields: ['name'], message: 'Il existe déjà une équipe portant ce nom')]
 class Team
 {
     #[ORM\Id]
@@ -15,7 +17,7 @@ class Team
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $name = null;
 
     /**
@@ -35,6 +37,9 @@ class Team
      */
     #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'winnerTeam')]
     private Collection $wonGames;
+
+    #[ORM\Column]
+    private ?bool $isDeleted = false;
 
     public function __construct()
     {
@@ -148,5 +153,22 @@ class Team
         }
 
         return $this;
+    }
+
+    public function isDeleted(): ?bool
+    {
+        return $this->isDeleted;
+    }
+
+    public function setDeleted(bool $isDeleted): static
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    public function getOwner(TeamRepository $teamRepository, Player $player, Team $team)
+    {
+        return $teamRepository->getTeamByHost($player, $team);
     }
 }

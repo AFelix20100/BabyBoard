@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240424093724 extends AbstractMigration
+final class Version20240424124812 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -30,7 +30,8 @@ final class Version20240424093724 extends AbstractMigration
         , updated_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         )');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL ON player (email)');
-        $this->addSql('CREATE TABLE team (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(255) NOT NULL)');
+        $this->addSql('CREATE TABLE team (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(255) NOT NULL, is_deleted BOOLEAN NOT NULL)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_C4E0A61F5E237E06 ON team (name)');
         $this->addSql('CREATE TABLE team_composition (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, player_id INTEGER NOT NULL, team_id INTEGER NOT NULL, is_host BOOLEAN DEFAULT NULL, is_guest BOOLEAN DEFAULT NULL, CONSTRAINT FK_E74FAC0A99E6F5DF FOREIGN KEY (player_id) REFERENCES player (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_E74FAC0A296CD8AE FOREIGN KEY (team_id) REFERENCES team (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_E74FAC0A99E6F5DF ON team_composition (player_id)');
         $this->addSql('CREATE INDEX IDX_E74FAC0A296CD8AE ON team_composition (team_id)');

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}BabyBaord | Se connecter{% endblock %}
 
 {% block body %}
     <div class="site-section">
@@ -18,6 +18,10 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <div class="text-center">
+                Vous n'avez pas de compte ?
+                  <a href="{{path('app_register')}}"> Créer en un ici !</a>
+                </div>
                 <div class="text-center">
                     <button class="btn btn-lg btn-primary mt-2" type="submit">
                         Se connecter

@@ -1,0 +1,54 @@
+{% extends 'base_dashboard.html.twig' %}
+
+{% block title %}Dashboard | Liste des équipes{% endblock %}
+
+{% block body %}
+    <div class="site-section bg-dark">
+      <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+          <h1 class="display-6">Liste des équipes</h1>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <a class="btn btn-sm btn-primary mb-2" href="{{ path('app_dashboard_team_new') }}">Créer une équipe</a>
+            <div class="widget-next-match">
+              <table class="table custom-table">
+                <thead>
+                  <tr class="text-center">
+                    <th>ID</th>
+                    <th>NOM</th>
+                    <th>PARTICIPANTS</th>
+                    <th>PARTIES JOUÉES</th>
+                    <th>VICTOIRES</th>
+                    <th>ACTION</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  
+                    {% for team in teams %}
+                        <tr>
+                            <td>{{ team.id }}</td>
+                            <td><strong class="text-white"><a href="{{path('app_dashboard_team_show', {id: team.id})}}">{{ team.name }}</a></strong></td>
+                            <td>{{ team.teamCompositions|length }}</td>
+                            <td>{{ team.games|length }}</td>
+                            <td>{{ team.wonGames|length }}</td>
+                            <td>
+                                <div class="row d-flex justify-content-around">
+                                    {{ include('dashboard/team/_delete_form.html.twig') }}
+                                    <a href="{{ path('app_dashboard_team_edit', { id: team.id }) }}" class="btn btn-primary btn-sm">Modifier</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>Aucun enregistrement n'a été trouvé</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- .site-section -->
+{% endblock %}
