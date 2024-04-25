@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    {{ form_row(form.player, {'attr': {'class': 'form-control js-example-basic-single'}}) }}
+    <div class="text-center mt-2">
+	    <button class="btn btn-sm btn-primary">{{ button_label|default('Ajouter') }}</button>
+    </div>
+{{ form_end(form) }}

@@ -3,17 +3,19 @@
 namespace App\Controller\Dashboard;
 
 use App\Entity\Team;
-use App\Entity\TeamComposition;
+use App\Entity\Player;
 use App\Form\TeamType;
-use App\Repository\TeamCompositionRepository;
+use App\Entity\TeamComposition;
+use App\Form\TeamCompositionAddType;
 use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
+use App\Repository\TeamCompositionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security;
 
 
 #[Route('/dashboard/mes-equipes')]
@@ -65,7 +67,7 @@ class TeamController extends AbstractController
         ]);
     }
     #[IsGranted('edit', 'team')]
-    #[Route('/{id}/edit', name: 'app_dashboard_team_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modifier', name: 'app_dashboard_team_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Team $team, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(TeamType::class, $team);

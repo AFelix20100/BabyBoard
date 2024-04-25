@@ -38,7 +38,7 @@ class TeamRepository extends ServiceEntityRepository
     public function getTeamByHost(Player $player, Team $team)
     {
         return $this->createQueryBuilder('t')
-            ->select('DISTINCT t.id') // Sélectionne uniquement des objets Team
+            ->select('DISTINCT t') // Sélectionne uniquement des objets Team
             ->join('t.teamCompositions', 'tc') // Jointure avec la relation teamCompositions
             ->where('tc.player = :player')
             ->andWhere('tc.isHost = true') // Le joueur est l'hôte
@@ -47,8 +47,10 @@ class TeamRepository extends ServiceEntityRepository
             ->setParameter('player', $player)
             ->setParameter('team', $team)
             ->getQuery()
-            ->getSingleScalarResult(); // Par défaut, Doctrine hydrate en objets Team
+            ->getResult();
     }
+
+    
 
     //    /**
     //     * @return Team[] Returns an array of Team objects

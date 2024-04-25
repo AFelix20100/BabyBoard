@@ -3,43 +3,50 @@
 {% block title %}Player index{% endblock %}
 
 {% block body %}
-    <h1>Player index</h1>
+<div class="hero overlay background-match">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-5 mx-auto text-center">
+				<h1 class="text-white">Joueurs</h1>
+				<p>Découvrez les joueurs !
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>LastName</th>
-                <th>FirstName</th>
-                <th>Mail</th>
-                <th>Pseudo</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for player in players %}
-            <tr>
-                <td>{{ player.id }}</td>
-                <td>{{ player.lastName }}</td>
-                <td>{{ player.firstName }}</td>
-                <td>{{ player.email }}</td>
-                <td>{{ player.pseudo }}</td>
-                <td>{{ player.createdAt ? player.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ player.updatedAt ? player.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_player_show', {'id': player.id}) }}">show</a>
-                    <a href="{{ path('app_player_edit', {'id': player.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div class="site-section bg-dark">
+	<div class="container">
+		<table class="table custom-table">
+			<thead>
+				<tr class="text-center">
+					<th>ID</th>
+					<th>PSEUDO</th>
+					<th>REJOINT LE</th>
+				</tr>
+			</thead>
+			<tbody class="text-center">
 
-    <a href="{{ path('app_player_new') }}">Create new</a>
+				{% for player in players %}
+					<tr>
+						<td>{{ player.id }}</td>
+						<td>
+							<strong class="text-white">
+								<a href="{{path('app_player_show', {id: player.id})}}">{{ player.pseudo }}</a>
+							</strong>
+						</td>
+						<td>{{ player.createdAt ? player.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td>Aucun enregistrement n'a été trouvé</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- .site-section -->
+
 {% endblock %}

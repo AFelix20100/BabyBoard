@@ -1,0 +1,15 @@
+{# templates/team/add_players.html.twig #}
+
+<h1>Ajouter des joueurs à l'équipe "{{ team.name }}"</h1>
+
+<h2>Liste des joueurs existants :</h2>
+<ul>
+    {% for player in players %}
+        <li>{{ player.name }}</li>
+    {% endfor %}
+</ul>
+
+{{ form_start(form) }}
+    {{ form_row(form.players) }}
+    <button type="submit">Ajouter les joueurs</button>
+{{ form_end(form) }}

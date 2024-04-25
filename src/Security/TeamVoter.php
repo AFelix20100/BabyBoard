@@ -25,23 +25,23 @@ class TeamVoter extends Voter
 
     protected function supports(string $attribute, mixed $subject): bool
     {
+        
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::VIEW, self::EDIT])) {
+        if (!in_array($attribute, [self::EDIT, self::DELETE])) {
             return false;
         }
-
+        
         // only vote on `Post` objects
         if (!$subject instanceof Team) {
             return false;
         }
-
+        
         return true;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
-
         if ($this->security->isGranted('ROLE_ADMIN')) {
             return true;
         }
@@ -64,19 +64,29 @@ class TeamVoter extends Voter
 
     private function canEdit(Player $user, Team $team): bool
     {
-        dd($team->getOwner($this->teamRepository, $user, $team));
-        // this assumes that the Post object has a `getOwner()` method
-        return $user === $team->getOwner($this->teamRepository, $user, $team);
+        // Vérifie si l'utilisateur actuel est l'hôte de l'équipe
+        $isHost = $team->getTeamCompositions()->exists(function ($key, $teamComposition) use ($user) {
+            return $teamComposition->getPlayer() === $user && $teamComposition->isHost() === true;
+        });
+        // Retourne true si l'utilisateur est l'hôte de l'équipe
+        return $isHost;
     }
 
 
     private function canDelete(Player $user, Team $team): bool
     {
+        // Vérifie si l'utilisateur peut éditer l'équipe
         if ($this->canEdit($user, $team)) {
             return true;
         }
-        // this assumes that the Post object has a `getOwner()` method
-        return $user === $team->getOwner($this->teamRepository, $user, $team);
+
+        // Sinon, vérifie si l'utilisateur est l'hôte de l'équipe
+        $isHost = $team->getTeamCompositions()->exists(function ($key, $teamComposition) use ($user) {
+            return $teamComposition->getPlayer() === $user && $teamComposition->getIsHost() === true;
+        });
+
+        return $isHost;
     }
+
     
 }

@@ -21,6 +21,36 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
+    public function findLastFourMatches(): array
+    {
+        return $this->createQueryBuilder('m')
+            ->orderBy('m.createdAt', 'DESC')
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findLastMatch(): ?Game
+    {
+        return $this->createQueryBuilder('m')
+            ->orderBy('m.createdAt', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getUnfinishedMatch(): ?Game
+    {
+        $query = $this->createQueryBuilder('g')
+            ->where('g.PointsBlue IS NULL')
+            ->andWhere('g.PointsRed IS NULL')
+            ->andWhere('g.winnerTeam IS NULL')
+            ->getQuery();
+
+        $unfinishedMatch = $query->getOneOrNullResult();
+
+        return $unfinishedMatch;
+    }
 //    /**
 //     * @return Game[] Returns an array of Game objects
 //     */

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Repository\TeamCompositionRepository;
+use App\Repository\TeamRepository;
 use App\Repository\GameRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
@@ -40,7 +42,7 @@ class Game
     private ?int $PointsRed = null;
 
     #[ORM\ManyToOne(inversedBy: 'wonGames')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Team $winnerTeam = null;
 
     #[PrePersist]
@@ -135,5 +137,27 @@ class Game
                 ->atPath('RedTeam')
                 ->addViolation();
         }
+    }
+
+    #[Assert\Callback]
+    public function validateTeamOwners(ExecutionContextInterface $context): void
+    {
+        $redTeamOwner = $this->getTeamOwner($this->RedTeam);
+        $blueTeamOwner = $this->getTeamOwner($this->BlueTeam);
+
+        if ($redTeamOwner && $blueTeamOwner && $redTeamOwner->getId() === $blueTeamOwner->getId()) {
+            $context->buildViolation("Les propriétaires des équipes rouge et bleue doivent être différents")
+                ->atPath('RedTeam')
+                ->addViolation();
+        }
+    }
+
+    private function getTeamOwner(Team $team): ?Player
+    {
+        $teamComposition = $team->getTeamCompositions()->filter(function ($teamComposition) {
+            return $teamComposition->isHost();
+        })->first();
+
+        return $teamComposition ? $teamComposition->getPlayer() : null;
     }
 }

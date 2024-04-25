@@ -1,7 +1,20 @@
-{{ form_start(form) }}
-    {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
 
-    <div class="text-center mt-2">
-        <button class="btn btn-sm btn-primary">{{ button_label|default('Ajouter') }}</button>
-    </div>
-{{ form_end(form) }}
+		<div class="row d-flex justify-content-center">
+			<div class="col-lg-7">
+                {{ form_start(form) }}
+				<div class="row">
+					<div class="col-6">
+						{{ form_row(form.RedTeam, {'attr': {'class': 'form-control js-example-basic-single'}}) }}
+					</div>
+					<div class="col-6">
+						{{ form_row(form.BlueTeam, {'attr': {'class': 'form-control js-example-basic-single'}}) }}
+					</div>
+				</div>
+				{{ form_row(form.PointsBlue, {'attr': {'class': 'form-control'}}) }}
+				{{ form_row(form.PointsRed, {'attr': {'class': 'form-control'}}) }}
+				{{ form_row(form.winnerTeam, {'attr': {'class': 'form-control js-example-basic-single'}}) }}
+                <button class="btn btn-lg btn-primary mt-2">{{ button_label|default('Save') }}</button>
+			</div>
+			{{form_end(form)}}
+		</div>
+	</div>

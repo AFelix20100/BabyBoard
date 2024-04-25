@@ -43,7 +43,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Veuillez saisir un mot de passe',
                     ]),
                     new Length([
-                        'min' => 6,
+                        'min' => 8,
                         'minMessage' => 'Votre mot de passe doit comporter au moins {{ limit }} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
@@ -51,7 +51,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
-                "label" => 'Vous devez accepter nos conditions.',
+                "label" => "En m'inscrivant, j'accepte les conditions générales d'utilisation de BabyBoard",
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([

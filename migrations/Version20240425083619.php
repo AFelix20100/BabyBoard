@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240424124812 extends AbstractMigration
+final class Version20240425083619 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20240424124812 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE game (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, red_team_id INTEGER NOT NULL, blue_team_id INTEGER NOT NULL, winner_team_id INTEGER NOT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
+        $this->addSql('CREATE TABLE game (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, red_team_id INTEGER NOT NULL, blue_team_id INTEGER NOT NULL, winner_team_id INTEGER DEFAULT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         , points_blue INTEGER DEFAULT NULL, points_red INTEGER DEFAULT NULL, CONSTRAINT FK_232B318CC38EA3F8 FOREIGN KEY (red_team_id) REFERENCES team (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_232B318CDBE05C8A FOREIGN KEY (blue_team_id) REFERENCES team (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_232B318CC5237001 FOREIGN KEY (winner_team_id) REFERENCES team (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_232B318CC38EA3F8 ON game (red_team_id)');
         $this->addSql('CREATE INDEX IDX_232B318CDBE05C8A ON game (blue_team_id)');

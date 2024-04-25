@@ -1,18 +1,18 @@
 {% extends 'base_dashboard.html.twig' %}
 
-{% block title %}Dashboard | Création d'une équipe{% endblock %}
+{% block title %}Dashboard | Création d'un match{% endblock %}
 
 {% block body %}
-    
     <div class="site-section">
       <div class="container mt-5">
         <div class="row d-flex justify-content-center">
           <div class="col-lg-7">
-            <a href="{{ path('app_dashboard_team_index') }}">Retour à la liste</a>
-            <h1>Créer une nouvelle équipe</h1>
-              {{ include('dashboard/team/_form.html.twig') }}
+            <a href="{{ path('app_dashboard_game_index') }}">Retour à la liste</a>
+            <h1>Créer un match</h1>
+              {{ include('dashboard/game/_form_add.html.twig') }}
             </div>
         </div>
       </div>
     </div>
+    
 {% endblock %}

@@ -1117,3 +1117,37 @@ h1, h2, h3, h4, h5,
   .post-meta a {
     color: #fff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
+
+
+.select2-container {
+  background-color: #333; /* Fond sombre */
+  color: #fff; /* Couleur du texte en blanc */
+}
+
+.select2-results
+{
+  color: black;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.text {
+  margin-right: 15px; /* Ajoutez ici l'espacement horizontal désiré */
+}
+
+.background-match
+{
+  background-image: url('../images/bg_match.jpg');
+}
+.background-team
+{
+  background-image: url('../images/bg_team.jpg');
+}
+
+.background-contact
+{
+  background-image: url('../images/bg_contact.jpg');
+}

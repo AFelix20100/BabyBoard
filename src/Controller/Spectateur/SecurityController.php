@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Spectateur;
 
 use App\Entity\Player;
 use App\Form\RegistrationFormType;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Spectateur;
 
 use App\Entity\Team;
 use App\Form\TeamType;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Spectateur;
 
 use App\Entity\Game;
 use App\Form\GameType;
@@ -21,6 +21,9 @@ class GameController extends AbstractController
     {
         return $this->render('game/index.html.twig', [
             'games' => $gameRepository->findAll(),
+            'FourGames' => $gameRepository->findLastFourMatches(),
+            'lastGame' => $gameRepository->findLastMatch(),
+            'unfinishedGame' => $gameRepository->getUnfinishedMatch(),
         ]);
     }
 

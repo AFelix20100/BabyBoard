@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}BabyBoard | Votre leaderbord pour le babyfoot !{% endblock %}
+{% block title %}BabyBoard | Accès interdit !{% endblock %}
 
 {% block body %}
-    <div class="hero overlay" style="background-image: url('images/bg_3.jpg');">
+    <div class="hero overlay" style="background-image: url('images/403.png');">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-5 ml-auto">
                     <h1 class="text-white">BabyBoard</h1>
-                    <p>Explorez un univers passionnant de compétition et de camaraderie avec notre plateforme dédiée au babyfoot.</p>
+                    <p>Votre leaderbord pour le babyfoot !</p>
+                    <div id="date-countdown"></div>
                     <p>
                         <a href="{{path('app_game_index')}}" class="btn btn-primary py-3 px-4 mr-3">Matchs en cours</a>
                         <a href="{{path('app_team_index')}}" class="more light">Voir les équipes</a>

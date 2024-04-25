@@ -1,0 +1,53 @@
+{% extends 'base_dashboard.html.twig' %}
+
+{% block title %}BabyBoard | Liste des participants{% endblock %}
+
+{% block body %}
+
+<div class="site-section bg-dark">
+      <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+          <h1 class="display-6">Liste des participants</h1>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <a href="{{ path('app_dashboard_team_index') }}">Retour à la liste</a>
+            <div class="widget-next-match">
+              <table class="table custom-table">
+                <thead>
+                  <tr class="text-center">
+                    <th>ID</th>
+                    <th>PSEUDO</th>
+                    <th>ACTION</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for team_composition in team_composition %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td><a href="{{ path('app_dashboard_team_composition_delete', { id: team_composition.id }) }}">{{ team_composition.player.pseudo }}</a></td>
+                            <td>
+                            {% if team_composition.isHost != true %}
+                                <div class="row d-flex justify-content-around">
+                                    {{ include('dashboard/team_composition/_delete_form.html.twig') }}
+                                </div>
+                            {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>Aucun enregistrement n'a été trouvé</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+
+            </div>
+            <div class="d-flex justify-content-center mt-2">
+                <a class="btn btn-sm btn-primary mb-2" href="{{ path('app_dashboard_team_composition_new', {id : team.id}) }}">Ajouter un participant</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- .site-section -->
+{% endblock %}
