@@ -1,10 +1,7 @@
 {{ form_start(form) }}
+{{ form_errors(form) }}
 {{ form_row(form.RedTeam)}}
-
-
 {{ form_row(form.BlueTeam) }}
-
-
 <div class="text-center mt-2">
 	<button class="btn btn-sm btn-primary">{{ button_label|default('Ajouter') }}</button>
 </div>

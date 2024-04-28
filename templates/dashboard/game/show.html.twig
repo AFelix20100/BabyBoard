@@ -11,18 +11,20 @@
           <div class="col-lg-7">
             <a href="{{ path('app_dashboard_game_index') }}">Retour à la liste</a>
             <h1>{{ game.name }}</h1>
-            <table class="table custom-table">
-                <tbody class="text-center">
-                    <tr>
-                        <td>ID</td>
-                        <td>{{ game.id }}</td>
-                    </tr>
-                    <tr>
-                        <td>NOM</td>
-                        <td>{{ game.name }}</td>
-                    </tr>
-                </tbody>
-            </table>
+              <div class="table-responsive">
+                  <table class="table custom-table">
+                      <tbody class="text-center">
+                      <tr>
+                          <td>ID</td>
+                          <td>{{ game.id }}</td>
+                      </tr>
+                      <tr>
+                          <td>NOM</td>
+                          <td>{{ game.name }}</td>
+                      </tr>
+                      </tbody>
+                  </table>
+              </div>
                 <div class="row d-flex justify-content-center mt-2">
                     {# {{ include('dashboard/game/_delete_form.html.twig') }} #}
                     <a href="{{ path('app_dashboard_game_edit', { id: game.id }) }}" class="btn btn-primary btn-sm mx-2">Modifier</a>

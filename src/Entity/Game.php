@@ -14,6 +14,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
 #[HasLifecycleCallbacks]
@@ -128,7 +129,14 @@ class Game
 
         return $this;
     }
+    private function getTeamOwner(Team $team): ?Player
+    {
+        $teamComposition = $team->getTeamCompositions()->filter(function ($teamComposition) {
+            return $teamComposition->isHost();
+        })->first();
 
+        return $teamComposition ? $teamComposition->getPlayer() : null;
+    }
     #[Assert\Callback]
     public function validate(ExecutionContextInterface $context): void
     {
@@ -151,13 +159,25 @@ class Game
                 ->addViolation();
         }
     }
-
-    private function getTeamOwner(Team $team): ?Player
+    #[Assert\Callback]
+    public function validatePlayers(ExecutionContextInterface $context): void
     {
-        $teamComposition = $team->getTeamCompositions()->filter(function ($teamComposition) {
-            return $teamComposition->isHost();
-        })->first();
+        $blueTeamPlayers = $this->getBlueTeam()->getTeamCompositions();
+        $redTeamPlayers = $this->getRedTeam()->getTeamCompositions();
 
-        return $teamComposition ? $teamComposition->getPlayer() : null;
+        foreach ($blueTeamPlayers as $key1 => $blueTeamPlayer) {
+            foreach ($redTeamPlayers as $key2 => $redTeamPlayer) {
+                if ($blueTeamPlayer->getPlayer()->getId() === $redTeamPlayer->getPlayer()->getId()) {
+                    $playerName = $blueTeamPlayer->getPlayer()->getPseudo(); // Obtenez le pseudo du joueur
+                    $context->buildViolation(sprintf('Le joueur "%s" ne peut pas appartenir à deux équipes différentes.', $playerName))
+                        ->atPath('RedTeam')
+                        ->addViolation();
+                    return;
+                }
+            }
+        }
     }
+
+
+
 }

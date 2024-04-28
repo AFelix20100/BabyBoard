@@ -1,0 +1,89 @@
+{% extends 'base_dashboard.html.twig' %}
+
+{% block title %}Dashboard | Mon Espace{% endblock %}
+
+{% block body %}
+<div class="hero overlay background-espace">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-5 mx-auto text-center">
+				<h1 class="text-white">Mon espace</h1>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="site-section bg-dark">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="container">
+					<div class="row">
+						<div class="col-md">
+							<div class="card card-background-color-dashboard card-color-blue shadow-lg text-light mb-3 mb-sm-0">
+								<div class="card-body">
+									<p class="m-0">Nombre d'équipes rejointes : <span class="text-primary">{{ numberOfTeamsReached is empty ? 0 : numberOfTeamsReached}}</span></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md">
+							<div class="card card-background-color-dashboard card-color-green shadow-lg text-light mb-3 mb-sm-0">
+								<div class="card-body">
+									<p class="m-0">Nombre d'équipes créé : <span class="text-primary">{{ numberOfTeamsCreated is empty ? 0 : numberOfTeamsCreated}}</span></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md">
+							<div class="card card-background-color-dashboard card-color-yellow shadow-lg text-light mb-3 mb-sm-0">
+								<div class="card-body">
+									<p class="m-0">Nombre de matchs disputés : <span class="text-primary">{{ gamePlayed is empty ? 0 : gamePlayed | length }}</span></p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-5 col-sm-12 mt-5">
+							<div class="card card-background-color-dashboard h-100 text-light">
+								<div class="card-body">
+									<div>
+										<canvas id="myChart"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-7 col-sm-12 mt-5">
+							<div class="card card-background-color-dashboard h-100 text-light">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+											<tr>
+												<th scope="col">DATE</th>
+												<th scope="col">EQUIPE ROUGE</th>
+												<th scope="col">EQUIPE BLEU</th>
+												<th scope="col">RÉSULTAT</th>
+												<th scope="col">ACTION</th>
+											</tr>
+											</thead>
+											<tbody>
+											{% for game in gamePlayed %}
+												<tr>
+													<th scope="row">{{ game.createdAt | date("m/d/Y")}}</th>
+													<td>{{ game.RedTeam.name }}</td>
+													<td>{{ game.BlueTeam.name }}</td>
+													<td>{{ game.winnerTeam ? game.winnerTeam.name : "Pas de gagnant" }}</td>
+													<td><a href="{{ path('app_game_show', {id : game.id}) }}">Détails</a></td>
+												</tr>
+											{% endfor %}
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

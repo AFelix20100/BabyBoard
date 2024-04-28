@@ -45,7 +45,8 @@ class TeamController extends AbstractController
             $teamComposition = new TeamComposition();
             $teamComposition->setTeam($team);
             $teamComposition->setPlayer($this->security->getUser());
-            $teamComposition->setHost(1);
+            $teamComposition->setHost(true);
+            $teamComposition->setGuest(false);
             $entityManager->persist($team);
             $entityManager->persist($teamComposition);
             $entityManager->flush();

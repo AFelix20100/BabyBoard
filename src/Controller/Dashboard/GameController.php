@@ -3,6 +3,8 @@
 namespace App\Controller\Dashboard;
 
 use App\Entity\Game;
+use App\Entity\Player;
+use App\Entity\Team;
 use App\Form\GameType;
 use App\Form\GameTypeAddType;
 use App\Repository\GameRepository;
@@ -18,11 +20,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_USER')]
 class GameController extends AbstractController
 {
+    public function __construct(private readonly EntityManagerInterface $entityManager)
+    {
+    }
+
     #[Route('/', name: 'app_dashboard_game_index', methods: ['GET'])]
     public function index(GameRepository $gameRepository): Response
     {
         return $this->render('dashboard/game/index.html.twig', [
-            'games' => $gameRepository->findAll(),
+            'games' => $gameRepository->getAllGameCreated($this->getUser()),
         ]);
     }
 
@@ -30,6 +36,16 @@ class GameController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $game = new Game();
+        $player = $this->getUser();
+        /** @var Player $player */
+        $teams = $this->entityManager->getRepository(Team::class)->getTeamsByHost($player);
+        if (empty($teams)) {
+            $this->addFlash(
+                'error',
+                'Vous devez avoir une équipe pour créer un match.'
+            );
+            return $this->redirectToRoute('app_dashboard_game_index');
+        }
         $form = $this->createForm(GameTypeAddType::class, $game);
         $form->handleRequest($request);
 

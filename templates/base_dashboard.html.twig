@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="FR">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Découvrez notre plateforme de leaderboard de babyfoot. Suivez les classements en direct, participez à des compétitions et rejoignez une communauté passionnée. Relevez le défi et hissez-vous au sommet du classement mondial des joueurs de babyfoot!">
+		<meta name="keywords" content="babyfoot, leaderboard, classements, compétitions, tournois, joueurs, jeu de table, football de table, kicker, baby foot, classement mondial, communauté de joueurs">
+		<link rel="icon" href="{{ asset('images/favicon.ico') }}" />
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="{{ asset('fonts/icomoon/style.css') }}">
@@ -16,8 +19,9 @@
 		<link rel="stylesheet" href="{{ asset('fonts/flaticon/font/flaticon.css') }}">
 		<link rel="stylesheet" href="{{ asset('css/aos.css') }}">
 		<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+		<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
 		<title>
-			{% block title %}Welcome!
+			{% block title %}BabyBoard | Votre leaderboard pour le babyfoot !
 			{% endblock %}
 		</title>
 
@@ -52,16 +56,20 @@
 										<a href="{{ path('app_home') }}" class="nav-link">Accueil</a>
 									</li>
 									<li>
+										<a href="{{ path('app_dashboard_index') }}" class="nav-link">Mon espace</a>
+									</li>
+									<li>
 										<a href="{{ path('app_dashboard_team_index') }}" class="nav-link">Mes équipes</a>
 									</li>
 									<li>
 										<a href="{{ path('app_dashboard_game_index') }}" class="nav-link">Mes matchs</a>
 									</li>
-                                        {% if app.user %}
-                                            <a href="{{path('_logout_main')}}" class="btn btn-primary py-3 px-4 mr-3">Déconnexion</a>
-                                        {% else %}
-                                            <a href="{{path('app_login')}}" class="btn btn-primary py-3 px-4 mr-3">Se connecter</a>                                        
-                                        {% endif %}
+									<li>
+										{% if app.user %}
+											<a href="{{path('_logout_main')}}" class="btn btn-sm btn-primary py-3 px-4 mr-3">Déconnexion</a>
+										{% else %}
+											<a href="{{path('app_login')}}" class="btn btn-sm btn-primary py-3 px-4 mr-3">Se connecter</a>
+										{% endif %}
 									</li>
 								</ul>
 							</nav>
@@ -71,84 +79,54 @@
 							</a>
 						</div>
 					</div>
+					{% for label, messages in app.flashes %}
+						{% for message in messages %}
+							<div class="alert flash-{{ label }}">
+								{{ message }}
+							</div>
+						{% endfor %}
+					{% endfor %}
 				</div>
 			</header>
 			{% block body %}{% endblock %}
-            <footer class="footer-section">
-                <div class="container">
-                    <div class="row">
-                    <div class="col-lg-3">
-                        <div class="widget mb-3">
-                        <h3>News</h3>
-                        <ul class="list-unstyled links">
-                            <li><a href="#">All</a></li>
-                            <li><a href="#">Club News</a></li>
-                            <li><a href="#">Media Center</a></li>
-                            <li><a href="#">Video</a></li>
-                            <li><a href="#">RSS</a></li>
-                        </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="widget mb-3">
-                        <h3>Tickets</h3>
-                        <ul class="list-unstyled links">
-                            <li><a href="#">Online Ticket</a></li>
-                            <li><a href="#">Payment and Prices</a></li>
-                            <li><a href="#">Contact &amp; Booking</a></li>
-                            <li><a href="#">Tickets</a></li>
-                            <li><a href="#">Coupon</a></li>
-                        </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="widget mb-3">
-                        <h3>Matches</h3>
-                        <ul class="list-unstyled links">
-                            <li><a href="#">Standings</a></li>
-                            <li><a href="#">World Cup</a></li>
-                            <li><a href="#">La Lega</a></li>
-                            <li><a href="#">Hyper Cup</a></li>
-                            <li><a href="#">World League</a></li>
-                        </ul>
-                        </div>
-                    </div>
+			<footer class="footer-section">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 d-flex justify-content-center">
+							<div class="widget mb-3">
+								<center><h3>Menu</h3></center>
+								<ul class="row list-unstyled links">
+									<li><a class="mx-2" href="{{ path('app_home') }}">Accueil</a></li>
+									<li><a class="mx-2" href="{{ path('app_dashboard_index') }}">Mon espace</a></li>
+									<li><a class="mx-2" href="{{ path('app_dashboard_team_index') }}">Mes équipes</a></li>
+									<li><a class="mx-2" href="{{ path('app_dashboard_game_index') }}">Mes Matchs</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
 
-                    <div class="col-lg-3">
-                        <div class="widget mb-3">
-                        <h3>Social</h3>
-                        <ul class="list-unstyled links">
-                            <li><a href="#">Twitter</a></li>
-                            <li><a href="#">Facebook</a></li>
-                            <li><a href="#">Instagram</a></li>
-                            <li><a href="#">Youtube</a></li>
-                        </ul>
-                        </div>
-                    </div>
-
-                    </div>
-
-                    <div class="row text-center">
+					<div class="row text-center">
 						<div class="col-md-12">
 							<div class=" pt-5">
 								<p>
 									<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 									Copyright &copy;
 									<script>
-									document.write(new Date().getFullYear());
+										document.write(new Date().getFullYear());
 									</script>| Tous droits réservés | par <a href="https://colorlib.com" target="_blank">ARTHUR Félix</a>
 									<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 								</p>
 							</div>
 						</div>
-                    </div>
-                </div>
-            </footer>
+					</div>
+				</div>
+			</footer>
 		</div>
 
 		<script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
 		<script src="{{ asset('js/custom.js') }}"></script>
 		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+		<script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
 		<script src="{{ asset('js/jquery-migrate-3.0.1.min.js') }}"></script>
 		<script src="{{ asset('js/jquery-ui.js') }}"></script>
 		<script src="{{ asset('js/popper.min.js') }}"></script>
@@ -163,6 +141,8 @@
 		<script src="{{ asset('js/jquery.sticky.js') }}"></script>
 		<script src="{{ asset('js/jquery.mb.YTPlayer.min.js') }}"></script>
 		<script src="{{ asset('js/main.js') }}"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script src="{{ asset('js/diagram.js') }}"></script>
 	</body>
 </html>
 

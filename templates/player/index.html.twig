@@ -3,7 +3,7 @@
 {% block title %}BabyBoard | Liste des joueurs{% endblock %}
 
 {% block body %}
-<div class="hero overlay background-match">
+<div class="hero overlay background-player">
 	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-lg-5 mx-auto text-center">
@@ -26,7 +26,7 @@
 				</tr>
 			</thead>
 			<tbody class="text-center">
-
+			{% if players is not empty %}
 				{% for player in players %}
 					<tr>
 						<td>{{ player.id }}</td>
@@ -35,15 +35,19 @@
 								<a href="{{path('app_player_show', {id: player.id})}}">{{ player.pseudo }}</a>
 							</strong>
 						</td>
-						<td>{{ player.createdAt ? player.createdAt|date('d/m/Y H:i:s') : '' }}</td>
+						<td>{{ player.createdAt ? player.createdAt|date('d/m/Y') : '' }}</td>
 					</tr>
 				{% else %}
 					<tr>
 						<td>Aucun enregistrement n'a été trouvé</td>
 					</tr>
 				{% endfor %}
+			{% endif %}
 			</tbody>
 		</table>
+		{% if players is null or players is null or players is not defined %}
+			<div style="text-align: center;"><h3>Pas de joueurs</h3></div>
+		{% endif %}
 	</div>
 </div>
 

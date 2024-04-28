@@ -1,44 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Player{% endblock %}
+{% block title %}BabyBoard | Information sur le joueur {{ player.pseudo }}{% endblock %}
 
 {% block body %}
-    <h1>Player</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ player.id }}</td>
-            </tr>
-            <tr>
-                <th>LastName</th>
-                <td>{{ player.lastName }}</td>
-            </tr>
-            <tr>
-                <th>FirstName</th>
-                <td>{{ player.firstName }}</td>
-            </tr>
-            <tr>
-                <th>Mail</th>
-                <td>{{ player.email }}</td>
-            </tr>
-            <tr>
-                <th>Pseudo</th>
-                <td>{{ player.pseudo }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ player.createdAt ? player.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ player.updatedAt ? player.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_player_index') }}">back to list</a>
-
-
+    <div class="site-section">
+        <div class="container mt-5">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12">
+                    <a href="{{ path('app_player_index') }}">Retour à la liste</a>
+                    <table class="table custom-table">
+                        <tbody class="text-center">
+                        <tr>
+                            <td>PSEUDO</td>
+                            <td>{{ player.pseudo }}</td>
+                        </tr>
+                        <tr>
+                            <td>REJOINT LE</td>
+                            <td>{{ player.createdAt ? player.createdAt|date('d/m/Y') : '' }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+

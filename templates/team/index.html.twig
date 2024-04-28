@@ -3,52 +3,59 @@
 {% block title %}BabyBoard | Liste des équipes{% endblock %}
 
 {% block body %}
-<div class="hero overlay background-team">
-	<div class="container">
-		<div class="row align-items-center">
-			<div class="col-lg-5 mx-auto text-center">
-				<h1 class="text-white">Équipes</h1>
-				<p>Découvrez les équipes !
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
-    <div class="site-section bg-dark">
-      <div class="container mt-5">
-        <div class="row">
-          <div class="col-12">
-            <div class="widget-next-match">
-              <table class="table custom-table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>NOM</th>
-                    <th>NOMBRE DE JOUEURS</th>
-                    <th>NOMBRE DE PARTIES JOUÉES</th>
-                    <th>NOMBRE DE VICTOIRE</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                    {% for team in teams %}
-                        <tr>
-                            <td>{{ team.id }}</td>
-                            <td><strong class="text-white">{{ team.name }}</strong></td>
-                            <td>{{ team.teamCompositions|length }}</td>
-                            <td>3</td>
-                            <td>2</td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td>Aucun enregistrement n'a été trouvé</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-              </table>
+    <div class="hero overlay background-team">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mx-auto text-center">
+                    <h1 class="text-white">Équipes</h1>
+                    <p>Découvrez les équipes !
+                    </p>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+    <div class="site-section bg-dark">
+        <div class="container mt-5">
+            {% if teams is not empty and teams is defined %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="widget-next-match">
+                            <div class="table-responsive">
+                                <table class="table custom-table">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>NOM</th>
+                                        <th>NOMBRE DE JOUEURS</th>
+                                        <th>NOMBRE DE PARTIES JOUÉES</th>
+                                        <th>NOMBRE DE VICTOIRE</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for team in teams %}
+                                        <tr>
+                                            <td>{{ team.id }}</td>
+                                            <td><strong class="text-white">{{ team.name }}</strong></td>
+                                            <td>{{ team.teamCompositions|length }}</td>
+                                            <td>3</td>
+                                            <td>2</td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td>Aucun enregistrement n'a été trouvé</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                    {% if teams is null or teams is null or teams is not defined or teams is empty %}
+                        <div style="text-align: center;"><h3>Pas d'équipes</h3></div>
+                    {% endif %}
+            {% endif %}
+        </div>
     </div> <!-- .site-section -->
 {% endblock %}

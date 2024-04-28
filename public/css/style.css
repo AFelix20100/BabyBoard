@@ -1151,3 +1151,51 @@ h1, h2, h3, h4, h5,
 {
   background-image: url('../images/bg_contact.jpg');
 }
+.background-player
+{
+  background-image: url('../images/bg_players.jpeg');
+}
+
+.background-espace
+{
+  background-image: url('../images/bg_espace.jpeg');
+}
+
+.background-match2
+{
+  background-image: url('../images/bg_match2.jpg');
+}
+
+.card-color-yellow
+{
+  border-left: .25rem solid #f6c23e;
+}
+
+.card-color-blue
+{
+  border-left: .25rem solid#4e73df;
+}
+
+.card-color-green
+{
+  border-left: .25rem solid #1cc88a ;
+}
+
+.card-background-color-dashboard {
+  background-color: transparent !important;
+}
+
+.flash-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb; }
+
+.flash-error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb; }
+
+.flash-info {
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff; }

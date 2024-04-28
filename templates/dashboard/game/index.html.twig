@@ -3,6 +3,15 @@
 {% block title %}Dashboard | Liste des matchs{% endblock %}
 
 {% block body %}
+    <div class="hero overlay background-match2">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mx-auto text-center">
+                    <h1 class="text-white">Mes matchs</h1>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="site-section bg-dark">
       <div class="container mt-5">
         <div class="row d-flex justify-content-center">
@@ -12,51 +21,53 @@
           <div class="col-12">
             <a class="btn btn-sm btn-primary mb-2" href="{{ path('app_dashboard_game_new') }}">Créer un match</a>
             <div class="widget-next-match">
-              <table class="table custom-table">
-                <thead>
-                  <tr class="text-center">
-                    <th>ID</th>
-                    <th>EQUIPE ROUGE</th>
-                    <th>EQUIPE BLEU</th>
-                    <th>POINTS ROUGE</th>
-                    <th>POINTS BLEU</th>
-                    <th>DATE</th>
-                    <th>GAGNANT</th>
-                    <th>ACTION</th>
-                  </tr>
-                </thead>
-                <tbody class="text-center">
-                  
-                    {% for game in games %}
-                        <tr>
-                            <td>{{ game.id }}</td>
-                            <td>{{ game.RedTeam.name }}</td>
-                            <td>{{ game.BlueTeam.name }}</td>
-                            <td>{{ game.PointsBlue is null ? 'null' : game.PointsBlue }}</td>
-                            <td>{{ game.PointsRed is null ? 'null' : game.PointsRed }}</td>
-                            <td>{{ game.createdAt|date("d/m/Y") }}</td>
-                            <td>
-                                {% if game.winnerTeam is null %}
-                                  Pas de gagnant
-                                {% else %}
-                                  {{ game.winnerTeam.name }}
-                                {% endif %}
-                            </td>
-                            
-                            <td>
-                                <div class="row d-flex justify-content-around">
-                                    {# {{ include('dashboard/game/_delete_form.html.twig') }} #}
-                                    <a href="{{ path('app_dashboard_game_edit', { id: game.id }) }}" class="btn btn-primary btn-sm">Modifier</a>
-                                </div>
-                            </td>
+                <div class="table-responsive">
+                    <table class="table custom-table">
+                        <thead>
+                        <tr class="text-center">
+                            <th>ID</th>
+                            <th>EQUIPE ROUGE</th>
+                            <th>EQUIPE BLEU</th>
+                            <th>POINTS ROUGE</th>
+                            <th>POINTS BLEU</th>
+                            <th>DATE</th>
+                            <th>GAGNANT</th>
+                            <th>ACTION</th>
                         </tr>
-                    {% else %}
-                        <tr>
-                            <td>Aucun enregistrement n'a été trouvé</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-              </table>
+                        </thead>
+                        <tbody class="text-center">
+
+                        {% for game in games %}
+                            <tr>
+                                <td>{{ game.id }}</td>
+                                <td>{{ game.RedTeam.name }}</td>
+                                <td>{{ game.BlueTeam.name }}</td>
+                                <td>{{ game.PointsBlue is null ? 'NULL' : game.PointsBlue }}</td>
+                                <td>{{ game.PointsRed is null ? 'NULL' : game.PointsRed }}</td>
+                                <td>{{ game.createdAt|date("d/m/Y") }}</td>
+                                <td>
+                                    {% if game.winnerTeam is null %}
+                                        Pas de gagnant
+                                    {% else %}
+                                        {{ game.winnerTeam.name }}
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <div class="row d-flex justify-content-around">
+                                        {# {{ include('dashboard/game/_delete_form.html.twig') }} #}
+                                        <a href="{{ path('app_dashboard_game_edit', { id: game.id }) }}" class="btn btn-primary btn-sm">Modifier</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="100%" class="text-center">Aucun enregistrement n'a été trouvé</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
           </div>
         </div>

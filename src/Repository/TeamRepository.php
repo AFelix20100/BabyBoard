@@ -22,7 +22,12 @@ class TeamRepository extends ServiceEntityRepository
         parent::__construct($registry, Team::class);
     }
 
-    public function getTeamsByHost(Player $player)
+    /**
+     * Fonction permettant de retourner toutes les équipes actives de l'utilisateur.
+     * @param Player $player
+     * @return mixed
+     */
+    public function getTeamsByHost(Player $player): mixed
     {
         return $this->createQueryBuilder('t')
             ->select('DISTINCT t') // Sélectionne uniquement des objets Team
@@ -35,6 +40,30 @@ class TeamRepository extends ServiceEntityRepository
             ->getResult(); // Par défaut, Doctrine hydrate en objets Team
     }
 
+
+    /**
+     * Fonction permettant de récupérer toutes les équipes actives ou non créée par un joueur.
+     * @param Player $player
+     * @return mixed
+     */
+    public function getAllTeamsByHost(Player $player): mixed
+    {
+        return $this->createQueryBuilder('t')
+            ->select('DISTINCT t') // Sélectionne uniquement des objets Team
+            ->join('t.teamCompositions', 'tc') // Jointure avec la relation teamCompositions
+            ->where('tc.player = :player')
+            ->andWhere('tc.isHost = true') // Le joueur est l'hôte
+            ->setParameter('player', $player)
+            ->getQuery()
+            ->getResult(); // Par défaut, Doctrine hydrate en objets Team
+    }
+
+    /**
+     * Fonction permettant de retourner la composition d'une équipe.
+     * @param Player $player
+     * @param Team $team
+     * @return mixed
+     */
     public function getTeamByHost(Player $player, Team $team)
     {
         return $this->createQueryBuilder('t')
@@ -50,6 +79,18 @@ class TeamRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getAllTeamReachedByPlayer(Player $player): mixed
+    {
+        return $this->createQueryBuilder('t')
+            ->select('DISTINCT t') // Sélectionne uniquement des objets Team
+            ->join('t.teamCompositions', 'tc') // Jointure avec la relation teamCompositions
+            ->where('tc.player = :player')
+            ->andWhere('tc.isHost = false') // Le joueur est l'hôte
+            ->andWhere('tc.isGuest = true') // Le joueur est l'hôte
+            ->setParameter('player', $player)
+            ->getQuery()
+            ->getResult(); // Par défaut, Doctrine hydrate en objets Team
+    }
     
 
     //    /**

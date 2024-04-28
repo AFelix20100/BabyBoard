@@ -1,0 +1,31 @@
+// Spectateur
+1 - Changer le fond d'écrans des joueurs. => OK
+2 - Changer le titre de la page contact. => OK
+3 - Ajouter dans le footer dashboard. => OK
+4 - Changer la route de contact dans le footer. => OK
+5 - Afficher uniquement le jour, le mois et l'année d'inscription du joueur. => OK
+6 - Modifier la page d'équipe quand il n'y a pas d'enregistrements. => OK
+7 - Configurer la page de contact mail.
+
+// Dashboard
+1 - Ajouter des statistiques dans la page d'accueil.
+    - Afficher le nombre d'équipes que le joueur a rejoint.
+    - Afficher le nombre d'équipe créé par le joueur.
+    - Afficher la liste des matchs qui le concerne avec V ou D.
+    - Afficher un graphe V et D.
+2 - Modifier le footer du dashboard. => OK
+3 - Modifier l'affichage lorsqu'il n'y a pas d'enregistrements. => A changer
+
+// Général
+1 - Ajouter un Logo.
+2 - Ajouter un Favicon. => OK
+3 - Ajouter un description au site. => OK
+4 - Ajouter des mots-clés. => OK
+
+
+
+// Statistiques
+
+Pour avoir le nombre d'équipe rejoints :
+
+Il faut récupérer la liste d'équipe pour lequel l'utilisateur est guest.
