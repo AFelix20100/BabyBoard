@@ -178,6 +178,19 @@ class Game
         }
     }
 
+    #[Assert\Callback]
+    public function validatePoints(ExecutionContextInterface $context): void
+    {
+        $pointsBlue = $this->getPointsBlue();
+        $pointsRed = $this->getPointsRed();
+
+        if ($pointsBlue === 10 && $pointsRed === 10) {
+            $context->buildViolation('Les deux équipes ne peuvent pas avoir 10 points chacune.')
+                ->atPath('PointsBlue')
+                ->addViolation();
+        }
+    }
+
 
 
 }

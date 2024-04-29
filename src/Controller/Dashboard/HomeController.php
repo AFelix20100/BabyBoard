@@ -7,6 +7,8 @@ use App\Entity\Team;
 use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -31,7 +33,6 @@ class HomeController extends AbstractController
         $player = $this->security->getUser();
 
         $numberOfTeamsReached = count($this->entityManager->getRepository(Team::class)->getAllTeamReachedByPlayer($player));
-//        dd($this->entityManager->getRepository(Team::class)->getAllTeamReachedByPlayer($player));
         $numberOfTeamsCreated = count($this->entityManager->getRepository(Team::class)->getAllTeamsByHost($player));
         $gamePlayed = $this->entityManager->getRepository(Game::class)->getAllGamePlayed($player);
 
@@ -43,11 +44,22 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/mes-matchs', name: 'app_dashboard_game')]
-    public function matchs(): Response
+    /**
+     * Returns number of victories and defeats
+     * @return array
+     */
+    #[Route('/victories-defeats', name: 'app_victories_defeats')]
+    public function getVictoriesAndDefeats(Request $request): JsonResponse
     {
-        return $this->render('dashboard/game.html.twig', [
-            'controller_name' => 'DashboardController',
-        ]);
+        if ($request->isXmlHttpRequest()) {
+            /** @var Player $player */
+            $player = $this->getUser();
+            $result = $this->entityManager->getRepository(Game::class)->getVictoriesAndDefeats($player);
+
+            return new JsonResponse($result);
+        }
+
+        return new JsonResponse(['error' => 'Bad request'], JsonResponse::HTTP_BAD_REQUEST);
     }
+
 }

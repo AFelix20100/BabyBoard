@@ -137,6 +137,7 @@
                             </div>
 
                             <div class="text-center widget-vs-contents mb-4">
+                                <p>Vainqueur : {{game.winnerTeam.name}}</p>
                                 <h4>Versus</h4>
                                 <p class="mb-5">
                                     <span class="d-block">{{game.createdAt | date("d/m/Y")}}</span>
@@ -151,7 +152,39 @@
                 {% endfor %}
             </div>
             {% endif %}
-        </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="myTable" class="table text-dark">
+                                <thead>
+                                <tr>
+                                    <th scope="col">DATE</th>
+                                    <th scope="col">EQUIPE ROUGE</th>
+                                    <th scope="col">EQUIPE BLEU</th>
+                                    <th scope="col">POINT EQUIPE ROUGE</th>
+                                    <th scope="col">POINT EQUIPE BLEU</th>
+                                    <th scope="col">RÉSULTAT</th>
+                                    <th scope="col">ACTION</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for game in games %}
+                                    <tr>
+                                        <th scope="row">{{ game.createdAt | date("d/m/Y")}}</th>
+                                        <td>{{ game.RedTeam.name }}</td>
+                                        <td>{{ game.BlueTeam.name }}</td>
+                                        <td>{{ game.pointsBlue ? game.pointsBlue : "NULL" }}</td>
+                                        <td>{{ game.pointsRed ? game.pointsRed : "NULL" }}</td>
+                                        <td>{{ game.winnerTeam ? game.winnerTeam.name : "Pas de gagnant" }}</td>
+                                        <td><a href="{{ path('app_game_show', {id : game.id}) }}">Détails</a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% if lastGame is null or lastGame is not defined
             and unfinishedGame is null or unfinishedGame is not defined
             and FourGames is empty or FourGames is not defined %}

@@ -41,6 +41,7 @@ class TeamRepository extends ServiceEntityRepository
     }
 
 
+
     /**
      * Fonction permettant de récupérer toutes les équipes actives ou non créée par un joueur.
      * @param Player $player
@@ -91,7 +92,18 @@ class TeamRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult(); // Par défaut, Doctrine hydrate en objets Team
     }
-    
+
+    public function getAllTeamsWithPlayer(Player $player){
+        return $this->createQueryBuilder('t_sub')
+            ->select('t_sub.id')
+            ->distinct()
+            ->join('t_sub.teamCompositions', 'tc_sub')
+            ->where('tc_sub.isHost = true OR tc_sub.isGuest = true')
+            ->andWhere('tc_sub.player = :playerId')
+            ->setParameter('playerId', $player->getId()) // Remplacez 1 par l'ID du joueur
+            ->getQuery()
+            ->getResult();
+    }
 
     //    /**
     //     * @return Team[] Returns an array of Team objects

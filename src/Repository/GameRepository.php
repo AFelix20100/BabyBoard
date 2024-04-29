@@ -86,18 +86,64 @@ class GameRepository extends ServiceEntityRepository
             ->innerJoin('TC.player', 'P')
             ->andWhere('P.id = :player')
             ->andWhere('G.RedTeam IN (
-        SELECT DISTINCT t.id
-        FROM App\Entity\Team t
-        JOIN t.teamCompositions tc
-        WHERE tc.player = :player
-        AND tc.isHost = true
-        AND t.isDeleted = false
-    )')
+                SELECT DISTINCT t.id
+                FROM App\Entity\Team t
+                JOIN t.teamCompositions tc
+                WHERE tc.player = :player
+                AND tc.isHost = true
+                AND t.isDeleted = false
+            )')
             ->setParameter('player', $player->getId())
             ->getQuery()
             ->getResult();
 
     }
+
+    public function getVictoriesAndDefeats(Player $player): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT
+            SUM(CASE WHEN G.winner_team_id = T.id THEN 1 ELSE 0 END) AS nombre_victoires,
+            SUM(CASE WHEN G.winner_team_id != T.id THEN 1 ELSE 0 END) AS nombre_defaites
+        FROM
+            team T
+                LEFT JOIN
+            game G ON T.id = G.red_team_id OR T.id = G.blue_team_id
+        WHERE
+            T.id IN (
+                SELECT DISTINCT T.id
+                FROM team T
+                         INNER JOIN team_composition TC ON TC.team_id = T.id
+                WHERE (TC.is_host = true OR TC.is_guest = true)
+                  AND TC.player_id = :playerId
+            );
+        ';
+
+        $resultSet = $conn->executeQuery($sql, ['playerId' => $player->getId()]);
+
+        // Fetch the first (and only) row from the result set
+        $data = $resultSet->fetchAssociative();
+
+        // If there's no data, return an empty array
+        if (!$data) {
+            return [];
+        }
+
+        // Extract the values from the associative array
+        $victories = $data['nombre_victoires'];
+        $defeats = $data['nombre_defaites'];
+
+        // Return the extracted values as an associative array
+        return [
+            'nombre_victoires' => $victories,
+            'nombre_defaites' => $defeats,
+        ];
+    }
+
+
+
 
 
 //    /**

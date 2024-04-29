@@ -1138,6 +1138,16 @@ h1, h2, h3, h4, h5,
   margin-right: 15px; /* Ajoutez ici l'espacement horizontal désiré */
 }
 
+.background-error-403
+{
+  background-image: url('../images/403.png');
+}
+.background-error-404
+{
+  background-image: url('../images/404.png');
+}
+
+
 .background-match
 {
   background-image: url('../images/bg_match.jpg');

@@ -62,17 +62,17 @@
 												<th scope="col">EQUIPE ROUGE</th>
 												<th scope="col">EQUIPE BLEU</th>
 												<th scope="col">RÉSULTAT</th>
-												<th scope="col">ACTION</th>
+{#												<th scope="col">ACTION</th>#}
 											</tr>
 											</thead>
 											<tbody>
 											{% for game in gamePlayed %}
 												<tr>
-													<th scope="row">{{ game.createdAt | date("m/d/Y")}}</th>
+													<th scope="row">{{ game.createdAt | date("d/m/Y")}}</th>
 													<td>{{ game.RedTeam.name }}</td>
 													<td>{{ game.BlueTeam.name }}</td>
 													<td>{{ game.winnerTeam ? game.winnerTeam.name : "Pas de gagnant" }}</td>
-													<td><a href="{{ path('app_game_show', {id : game.id}) }}">Détails</a></td>
+{#													<td><a href="{{ path('app_game_show', {id : game.id}) }}">Détails</a></td>#}
 												</tr>
 											{% endfor %}
 										</table>
@@ -86,4 +86,5 @@
 		</div>
 	</div>
 </div>
+
 {% endblock %}

@@ -87,15 +87,4 @@ class GameController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    // #[Route('/{id}', name: 'app_dashboard_game_delete', methods: ['POST'])]
-    // public function delete(Request $request, Game $game, EntityManagerInterface $entityManager): Response
-    // {
-    //     if ($this->isCsrfTokenValid('delete'.$game->getId(), $request->getPayload()->get('_token'))) {
-    //         $entityManager->remove($game);
-    //         $entityManager->flush();
-    //     }
-
-    //     return $this->redirectToRoute('app_dashboard_game_index', [], Response::HTTP_SEE_OTHER);
-    // }
 }

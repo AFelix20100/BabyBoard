@@ -37,8 +37,8 @@
                                             <td>{{ team.id }}</td>
                                             <td><strong class="text-white">{{ team.name }}</strong></td>
                                             <td>{{ team.teamCompositions|length }}</td>
-                                            <td>3</td>
-                                            <td>2</td>
+                                            <td>{{ team.games|length }}</td>
+                                            <td>{{ team.wonGames|length }}</td>
                                         </tr>
                                     {% else %}
                                         <tr>

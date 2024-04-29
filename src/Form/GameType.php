@@ -4,11 +4,14 @@ namespace App\Form;
 
 use App\Entity\Game;
 use App\Entity\Team;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
+use Symfony\Component\Validator\Constraints\Callback;
 
 class GameType extends AbstractType
 {
@@ -16,10 +19,22 @@ class GameType extends AbstractType
     {
         $builder
             ->add('PointsBlue', IntegerType::class,[
-                'label' => "Point équipe Bleu"
+                'label' => "Point équipe Bleu",
+                'constraints' => [
+                    new LessThanOrEqual([
+                        'value' => 10,
+                        'message' => 'Les points doivent être inférieurs ou égaux à 10.',
+                    ]),
+                ],
             ])
             ->add('PointsRed', IntegerType::class,[
-                'label' => "Point équipe Rouge"
+                'label' => "Point équipe Rouge",
+                'constraints' => [
+                    new LessThanOrEqual([
+                        'value' => 10,
+                        'message' => 'Les points doivent être inférieurs ou égaux à 10.',
+                    ]),
+                ],
             ])
             ->add('RedTeam', EntityType::class, [
                 'label' => 'Équipe Rouge',
