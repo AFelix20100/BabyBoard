@@ -42,8 +42,8 @@ jobs:
     - name: Create Database
       run: |
         mkdir -p data
-        touch data/database.sqlite
+        touch var/data.db
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DATABASE_URL: sqlite:///%kernel.project_dir%/var/data.db
-      run: php bin/phpunit tests
+      run: php bin/phpunit
