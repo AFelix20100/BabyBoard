@@ -7,8 +7,10 @@
 	<div class="site-section">
 			<div class="container mt-5">
 				<div class="row d-flex justify-content-center">
-					<div class="col-lg-7">
+					<div class="col-lg-7 col-sm-12 mt-5">
 						{{form_start(registrationForm)}}
+						{{ form_errors(registrationForm, {'attr': {'class': 'form-control'}}) }}
+						<h1 class="h3 mb-3 font-weight-normal">Créer un compte</h1>
 						<div class="row">
 							<div class="col-6">
 								{{ form_row(registrationForm.lastName, {'attr': {'class': 'form-control'}}) }}
