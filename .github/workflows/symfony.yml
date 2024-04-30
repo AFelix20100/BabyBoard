@@ -46,4 +46,4 @@ jobs:
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DATABASE_URL: sqlite:///%kernel.project_dir%/var/data.db
-      run: vendor/bin/phpunit
+      run: php bin/phpunit tests
