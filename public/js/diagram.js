@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $.ajax({
-        url: "/dashboard/victories-defeats",
+        url: "/dashboard/mon-espace/victories-defeats",
         method: "POST",
         dataType: "json",
     })

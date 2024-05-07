@@ -1,35 +1,38 @@
 {% extends 'base_dashboard.html.twig' %}
 
 {% block title %}Dashboard | Détail
-	{{team.name}}
+    {{ team.name }}
 {% endblock %}
 
 {% block body %}
-	<div class="site-section">
-      <div class="container mt-5">
-        <div class="row d-flex justify-content-center">
-          <div class="col-lg-7 col-sm-12 mt-5">
-            <a href="{{ path('app_dashboard_team_index') }}">Retour à la liste</a>
-            <h1>{{ team.name }}</h1>
-            <table class="table custom-table table-responsive">
-                <tbody class="text-center">
-                    <tr>
-                        <td>ID</td>
-                        <td>{{ team.id }}</td>
-                    </tr>
-                    <tr>
-                        <td>NOM</td>
-                        <td>{{ team.name }}</td>
-                    </tr>
-                </tbody>
-            </table>
-                <div class="row d-flex justify-content-center mt-2">
-                    {{ include('dashboard/team/_delete_form.html.twig') }}
-                    <a href="{{ path('app_dashboard_team_edit', { id: team.id }) }}" class="btn btn-primary btn-sm mx-2">Modifier</a>
+    <div class="site-section">
+        <div class="container mt-5">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-7 col-sm-12" style="margin-top: 75px;">
+                    <a href="{{ path('app_dashboard_team_index') }}">Retour à la liste</a>
+                    <h1>{{ team.name }}</h1>
+                    <div class="table-responsive">
+                        <table class="table custom-table">
+                            <tbody class="text-center">
+                            <tr>
+                                <td>ID</td>
+                                <td>{{ team.id }}</td>
+                            </tr>
+                            <tr>
+                                <td>NOM</td>
+                                <td>{{ team.name }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="row d-flex justify-content-center mt-2">
+                            {{ include('dashboard/team/_delete_form.html.twig') }}
+                            <a href="{{ path('app_dashboard_team_edit', { id: team.id }) }}"
+                               class="btn btn-primary btn-sm mx-2">Modifier</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-      </div>
     </div>
 {% endblock %}
 
