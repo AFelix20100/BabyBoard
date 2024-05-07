@@ -9,10 +9,10 @@
 
 // Dashboard
 1 - Ajouter des statistiques dans la page d'accueil.
-    - Afficher le nombre d'équipes que le joueur a rejoint.
-    - Afficher le nombre d'équipe créé par le joueur.
-    - Afficher la liste des matchs qui le concerne avec V ou D.
-    - Afficher un graphe V et D.
+    - Afficher le nombre d'équipes que le joueur a rejoint. => OK
+    - Afficher le nombre d'équipe créé par le joueur. => OK
+    - Afficher la liste des matchs qui le concerne avec V ou D. => OK
+    - Afficher un graphe V et D. => OK
 2 - Modifier le footer du dashboard. => OK
 3 - Modifier l'affichage lorsqu'il n'y a pas d'enregistrements. => A changer
 
@@ -21,11 +21,3 @@
 2 - Ajouter un Favicon. => OK
 3 - Ajouter un description au site. => OK
 4 - Ajouter des mots-clés. => OK
-
-
-
-// Statistiques
-
-Pour avoir le nombre d'équipe rejoints :
-
-Il faut récupérer la liste d'équipe pour lequel l'utilisateur est guest.
