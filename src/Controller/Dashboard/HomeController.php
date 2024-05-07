@@ -15,7 +15,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Player;
 
-#[Route('/dashboard')]
+#[Route('/dashboard/mon-espace')]
 #[IsGranted('ROLE_USER')]
 class HomeController extends AbstractController
 {

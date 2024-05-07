@@ -21,7 +21,7 @@ security:
                 check_path: app_login
                 enable_csrf: true
             logout:
-                path: /logout
+                path: /se-deconnecter
                 target: app_home
 
             # activate different ways to authenticate

@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
-#[Route('/player')]
+#[Route('/joueurs')]
 #[IsGranted('ROLE_USER')]
 class PlayerController extends AbstractController
 {
@@ -25,7 +25,7 @@ class PlayerController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_player_new', methods: ['GET', 'POST'])]
+    #[Route('/nouveau', name: 'app_player_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $player = new Player();
@@ -53,7 +53,7 @@ class PlayerController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_player_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modifier', name: 'app_player_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Player $player, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PlayerType::class, $player);
