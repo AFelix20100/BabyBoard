@@ -17,7 +17,7 @@ class TeamCompositionController extends AbstractController
     // #[Route('/', name: 'app_team_composition_index', methods: ['GET'])]
     // public function index(TeamCompositionRepository $teamCompositionRepository): Response
     // {
-    //     return $this->render('team_composition/index.html.twig', [
+    //     return $this->render('team_composition/index.html.twig.twig', [
     //         'team_compositions' => $teamCompositionRepository->findAll(),
     //     ]);
     // }
