@@ -21,10 +21,8 @@ class Mailer
             ->from('BabyBoard <babyboard@alwaysdata.net>')
             ->to(new Address($player->getEmail()))
             ->subject('Bienvenue sur BabyBoard !')
-            ->htmlTemplate('mails/index.html.twig')
+            ->htmlTemplate('mails/welcome.html.twig')
             ->context(['user' => $player]); // Passer la variable 'user' au template Twig
-
-        // dd($mailer->send($email)); // Commente ou supprime cette ligne pour permettre l'envoi réel
 
         // Envoie l'e-mail
         $this->mailer->send($email);
@@ -36,10 +34,8 @@ class Mailer
             ->from('BabyBoard <babyboard@alwaysdata.net>')
             ->to(new Address("arthur.felix28110@gmail.com"))
             ->subject('Bienvenue sur BabyBoard !')
-            ->htmlTemplate('mails/index.html.twig')
+            ->htmlTemplate('mails/welcome.html.twig')
             ->context(['user' => $player]); // Passer la variable 'user' au template Twig
-
-        // dd($mailer->send($email)); // Commente ou supprime cette ligne pour permettre l'envoi réel
 
         // Envoie l'e-mail
         $this->mailer->send($email);
@@ -51,7 +47,7 @@ class Mailer
             ->from('BabyBoard <babyboard@alwaysdata.net>')
             ->to(new Address("arthur.felix28110@gmail.com"))
             ->subject('Bienvenue sur BabyBoard !')
-            ->htmlTemplate('mails/index.html.twig')
+            ->htmlTemplate('mails/welcome.html.twig')
             ->context(['user' => $player]); // Passer la variable 'user' au template Twig
 
         // dd($mailer->send($email)); // Commente ou supprime cette ligne pour permettre l'envoi réel
