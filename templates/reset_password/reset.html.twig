@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BabyBoard | Réinitialiser son mot de passe{% endblock %}
+
+{% block body %}
+    <div class="site-section">
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 col-sm-12 mt-5">
+                    <h1>Réinitialiser son mot de passe</h1>
+
+                    {{ form_start(resetForm) }}
+                    {{ form_row(resetForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-primary">Réinitialiser</button>
+                    </div>
+                    {{ form_end(resetForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
